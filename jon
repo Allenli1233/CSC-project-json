@@ -1,0 +1,152 @@
+{
+  "locations": [
+    {
+      "id": 0,
+      "name": "Student Dorm",
+      "brief_description": "LOCATION 0\nYour dorm room, .",
+      "long_description": "LOCATION 0\nYour dorm room, with a timetable posted on the wall and a faded 'The Lord of the Rings' poster. To the east is Robarts Library, and to the south is the Convocation Hall.",
+      "available_commands": {
+        "go east": 1,
+        "go south": 2
+      },
+      "items": [],
+      "puzzle": {
+        "trigger_action": "check poster",
+        "success": {
+          "message": "On the back of the poster, a sequence of numbers is written: CSC111",
+          "clue_for": 4
+        }
+      }
+    },
+    {
+      "id": 1,
+      "name": "Robarts Library 1F",
+      "brief_description": "LOCATION 1\nFirst floor of the library, with a notice by the elevator: '4F under maintenance.'",
+      "long_description": "LOCATION 1\nThe study area is crowded with students, and the air is filled with the scent of coffee. To the west is the dorm, and to the east is the Bahen Centre for Computer Science.\nYou notice a laptop charger plugged into an outlet.",
+      "available_commands": {
+        "go west": 0,
+        "go east": 3,
+        "go down": -1  // Initially inaccessible, requires puzzle solution
+      },
+      "items": ["laptop_charger"],
+      "puzzle": {
+        "trigger_action": "read notice",
+        "success": {
+          "message": "On the back of the notice, it says: 'To access 4F, say the magic word.'",
+          "unlock_direction": "down",
+          "required_item": "master_key"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "name": "Convocation Hall",
+      "brief_description": "LOCATION 2\nA grand domed hall with a locked main entrance.",
+      "long_description": "LOCATION 2\nA Latin motto is engraved on the bronze doors. A crumpled note lies on the ground:\n'The key is in locker #5 at the athletic center...'",
+      "available_commands": {
+        "go north": 0,
+        "go south": 5
+      },
+      "items": [],
+      "puzzle": {
+        "trigger_action": "use key",
+        "required_item": "convocation_key",
+        "success": {
+          "message": "The key turns! The door opens, leading to an underground passage.",
+          "unlock_direction": "south"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "name": "Bahen Centre Lab",
+      "brief_description": "LOCATION 3\nThe lab door is locked, with a password hint next to the keypad.",
+      "long_description": "LOCATION 3\nA sign on the glass door reads 'CSC111 project testing in progress.' Password hint:\n'What course are you taking?'",
+      "available_commands": {
+        "go west": 1
+      },
+      "items": ["lucky_mug"],
+      "puzzle": {
+        "trigger_action": "enter code csc111",
+        "success": {
+          "message": "The door opens! A lucky mug sits on the desk, still warm.",
+          "unlock_direction": "east",
+          "add_item": "lucky_mug"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "name": "Robarts Library 4F",
+      "brief_description": "LOCATION 4\nA dimly lit old book section, with dust floating in the sunlight.",
+      "long_description": "LOCATION 4\nRows of metal bookshelves stretch into the shadows. One shelf is labeled 'CS152: Time Travel for Beginners.'",
+      "available_commands": {
+        "go up": 1
+      },
+      "items": ["usb_drive"],
+      "puzzle": {
+        "trigger_action": "search shelf",
+        "required_item": "flashlight",
+        "success": {
+          "message": "The flashlight illuminates a hidden USB drive behind 'Dungeons & Dragons Guidebook'!",
+          "add_item": "usb_drive"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "name": "Athletic Centre Locker Room",
+      "brief_description": "LOCATION 5\nThe locker room smells of sweat and disinfectant.",
+      "long_description": "LOCATION 5\nRusty lockers line the room. Locker #5 is slightly open, revealing something inside...",
+      "available_commands": {
+        "go north": 2
+      },
+      "items": ["convocation_key", "flashlight"],
+      "puzzle": {
+        "trigger_action": "open locker",
+        "success": {
+          "message": "You found the Convocation Hall key and a flashlight!",
+          "add_item": ["convocation_key", "flashlight"]
+        }
+      }
+    }
+  ],
+  "items": [
+    {
+      "name": "laptop_charger",
+      "description": "A black charger with 'Property of CSC111' engraved on the plug.",
+      "start_position": 1,
+      "target_position": 0,
+      "target_points": 15
+    },
+    {
+      "name": "usb_drive",
+      "description": "A blue USB drive with a small penguin logo on the label.",
+      "start_position": 4,
+      "target_position": 0,
+      "target_points": 30,
+      "required_item": "flashlight"  
+    },
+    {
+      "name": "lucky_mug",
+      "description": "A mug with 'World's Best TA' printed on it, with coffee stains at the bottom.",
+      "start_position": 3,
+      "target_position": 0,
+      "target_points": 20
+    },
+    {
+      "name": "convocation_key",
+      "description": "A bronze key with the University of Toronto emblem engraved on the handle.",
+      "start_position": 5,
+      "target_position": 2,
+      "target_points": 0  
+    },
+    {
+      "name": "flashlight",
+      "description": "An old flashlight, with only one bar of battery remaining.",
+      "start_position": 5,
+      "target_position": 4,
+      "target_points": 10
+    }
+  ]
+}
